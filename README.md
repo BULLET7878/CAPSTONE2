@@ -7,9 +7,9 @@
 
 ## 📌 Problem Statement
 
-> **Which skills drive job recommendation success, and can we predict whether a candidate will be recommended based on their skill-match score?**
+> **Which skill gaps matter most in candidate-job fit, and how can hiring teams use matching signals to improve shortlist quality?**
 
-In a rapidly evolving labour market, HR platforms rely on algorithmic matching to connect candidates with opportunities. This project performs a full end-to-end analytical workflow on a 100,000-record job recommendation dataset to uncover the drivers of successful placements.
+In a rapidly evolving labour market, HR platforms rely on algorithmic matching to connect candidates with opportunities. This project performs a full end-to-end analytical workflow on a 10,000-record resume-job matching dataset to uncover the drivers of candidate readiness and skill gaps.
 
 ---
 
@@ -18,10 +18,9 @@ In a rapidly evolving labour market, HR platforms rely on algorithmic matching t
 | Member | Role |
 |--------|------|
 | Rahul Dhakar | Data Engineer & ETL Lead |
-| Parth P | EDA & Statistical Analysis |
-| *(Team members)* | Tableau & Visualization |
-| *(Team members)* | Documentation & Reporting |
-| *(Team members)* | Presentation Lead |
+| Harsh Raj | EDA & Statistical Analysis |
+| Suraj Kumar Rai | Tableau & Visualization |
+| Harshil Singh | Documentation & Presentation |
 
 ---
 
@@ -56,14 +55,14 @@ Capstone_DVA_2/
 ## 🔄 Workflow
 
 ```
-Raw XLSX → [01] Extract → [02] Clean → [03] EDA → [04] Stats → [05] Export → Tableau
+Raw CSV → [01] Extract → [02] Clean → [03] EDA → [04] Stats → [05] Export → Tableau
 ```
 
-1. **Extraction** — Load raw Excel, validate schema, profile data quality  
+1. **Extraction** — Load raw CSV, validate schema, profile data quality  
 2. **Cleaning** — Handle nulls, standardize skill lists, remove duplicates  
-3. **EDA** — Distributions, skill frequency, match score analysis, correlation heatmaps  
-4. **Statistical Analysis** — t-tests, chi-square, ANOVA, logistic regression  
-5. **Final Load Prep** — Export Tableau-ready CSVs, summary aggregations  
+3. **EDA** — Distributions, skill frequency, overlap analysis, correlation heatmaps  
+4. **Statistical Analysis** — Segmentation, root-cause analysis, scenario framing  
+5. **Final Load Prep** — Export Tableau-ready CSVs and summary aggregations  
 
 ---
 
@@ -71,15 +70,19 @@ Raw XLSX → [01] Extract → [02] Clean → [03] EDA → [04] Stats → [05] Ex
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `User_ID` | int | Unique candidate identifier |
-| `Job_ID` | int | Unique job posting identifier |
-| `User_Skills` | str | Pipe-separated list of candidate skills |
-| `Job_Requirements` | str | Pipe-separated list of required skills |
-| `Match_Score` | float | Algorithmic match score (0–100) |
-| `Recommended` | int | Binary recommendation outcome (0/1) |
+| `User_ID` | str | Unique candidate identifier |
+| `Job_ID` | str | Unique job posting identifier |
+| `User_Skills` | str | Comma-separated list of candidate skills |
+| `Job_Requirements` | str | Comma-separated list of required skills |
+| `Skill_Overlap_Count` | int | Exact count of matched skills |
+| `Match_Score_Band` | str | Categorical fit bucket (`Low` / `Medium` / `High`) |
+| `Education_Level` | str | Candidate education segment |
+| `Experience_Years` | int | Candidate experience in years |
+| `Location` | str | Geography or market segment |
+| `Job_Role` | str | Role family |
 
-**Size:** 100,000 rows × 6 columns  
-**Source:** Synthetic HR Tech simulation dataset
+**Size:** 10,000 rows × 12 columns  
+**Source:** Uploaded resume-job matching CSV used for this capstone
 
 ---
 

@@ -1,0 +1,4 @@
+match_score_band,count,avg_overlap,avg_skill_gap,avg_overlap_ratio,avg_exp_years,avg_user_skills
+Low,6158,0.7356,4.4472,0.1313,5.0395,4.6447
+Medium,3686,2.0651,2.7037,0.4331,4.9257,5.5496
+High,156,3.3654,0.859,0.8085,4.9936,6.0962

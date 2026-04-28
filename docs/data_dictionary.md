@@ -1,54 +1,40 @@
-# 📖 Data Dictionary — Job Market Analytics Dataset
+# Data Dictionary — Job Market Analytics Dataset
 
-**Dataset:** `Job Datsset.xlsx`  
+**Dataset:** `resume_job_matching_dataset_10000_v2.csv`  
 **Location:** `data/raw/`  
-**Rows:** 100,000 | **Columns:** 6  
-**Last Updated:** April 2026
-
----
+**Rows:** 10,000 | **Columns:** 12  
+**Last Updated:** April 28, 2026
 
 ## Column Definitions
 
-| # | Column Name | Data Type | Range / Format | Description | Notes |
-|---|-------------|-----------|----------------|-------------|-------|
-| 1 | `User_ID` | Integer | 1 – 100,000 | Unique identifier for each job candidate | Primary key; no nulls expected |
-| 2 | `Job_ID` | Integer | 1 – N | Unique identifier for each job posting | Multiple users may apply to the same job |
-| 3 | `User_Skills` | String | Pipe-delimited (`\|`) | Skills possessed by the candidate | e.g. `Python\|SQL\|Excel` |
-| 4 | `Job_Requirements` | String | Pipe-delimited (`\|`) | Skills required by the job posting | e.g. `Python\|Machine Learning\|Communication` |
-| 5 | `Match_Score` | Float | 0.0 – 100.0 | Algorithmic skill-overlap match score | Higher = better match |
-| 6 | `Recommended` | Integer (Binary) | 0 or 1 | Whether the candidate was recommended for the job | 1 = Recommended, 0 = Not Recommended |
+| # | Column Name | Data Type | Description |
+|---|-------------|-----------|-------------|
+| 1 | `User_ID` | String | Unique identifier for each candidate profile |
+| 2 | `Job_ID` | String | Unique identifier for each job posting |
+| 3 | `User_Skills` | String | Comma-separated list of candidate skills |
+| 4 | `Job_Requirements` | String | Comma-separated list of required job skills |
+| 5 | `User_Skill_Count` | Integer | Number of skills listed for the candidate |
+| 6 | `Job_Req_Count` | Integer | Number of skills required by the job |
+| 7 | `Skill_Overlap_Count` | Integer | Exact count of matched skills between candidate and job |
+| 8 | `Match_Score_Band` | Categorical | Match-quality band: `Low`, `Medium`, or `High` |
+| 9 | `Education_Level` | Categorical | Highest education level of the candidate |
+| 10 | `Experience_Years` | Integer | Candidate experience in years |
+| 11 | `Location` | Categorical | Candidate or market location |
+| 12 | `Job_Role` | Categorical | Role family associated with the job posting |
 
----
-
-## Derived / Engineered Columns (added in cleaning/EDA)
+## ETL-Derived Fields
 
 | Column Name | Source | Description |
 |-------------|--------|-------------|
-| `user_skill_count` | `User_Skills` | Number of skills the candidate has |
-| `job_req_count` | `Job_Requirements` | Number of skills the job requires |
-| `skill_overlap_count` | Both | Count of exact skill matches |
-| `match_score_band` | `Match_Score` | Binned category: Low / Medium / High |
+| `skill_gap` | `Job_Req_Count - Skill_Overlap_Count` | Number of required skills still missing |
+| `overlap_ratio` | `Skill_Overlap_Count / Job_Req_Count` | Share of job requirements already covered |
+| `candidate_readiness` | `overlap_ratio` | Rule-based tier: `Low`, `Medium`, `High` |
 
----
+## Known Limitations
 
-## Score Banding
-
-| Band | Match Score Range | Interpretation |
-|------|------------------|----------------|
-| Low | 0 – 33 | Poor fit — unlikely to be recommended |
-| Medium | 34 – 66 | Moderate fit — borderline recommendation |
-| High | 67 – 100 | Strong fit — likely to be recommended |
-
----
-
-## Known Quality Issues
-
-| Issue | Column | Resolution |
-|-------|--------|------------|
-| Possible leading/trailing whitespace in skills | `User_Skills`, `Job_Requirements` | Strip whitespace during cleaning |
-| Duplicate rows possible | All | Drop exact duplicates in notebook 02 |
-| Inconsistent skill casing | `User_Skills`, `Job_Requirements` | Lowercase all skills |
-
----
-
-*Data Dictionary v1.0 — Capstone 2 Team*
+| Issue | Impact |
+|-------|--------|
+| No timestamp or application date | Trend analysis and forecasting are not supported |
+| No raw numeric `Match_Score` | Band-level analysis is possible, but fine-grained scoring is not |
+| No recommendation / hiring outcome label | Predictive recommendation modelling cannot be validated on this dataset |
+| Synthetic or simulated structure is likely | Findings are directionally useful, but should be validated on live hiring data |

@@ -1,11 +1,21 @@
-skill,user_skill_freq,job_req_freq
-ai,34989,35178
-html,34882,35156
-machine learning,35199,35102
-javascript,35183,35059
-css,34914,35046
-data science,35141,35034
-java,34966,34992
-c++,34884,34971
-sql,35318,34838
-python,34862,34803
+skill,user_freq,job_freq,demand_gap,supply_surplus
+python,2540,2560,20,-20
+statistics,2488,2556,68,-68
+aws,2387,2541,154,-154
+kubernetes,2569,2533,-36,36
+sql,2473,2531,58,-58
+communication,2478,2527,49,-49
+data analysis,2471,2519,48,-48
+c++,2548,2518,-30,30
+docker,2421,2517,96,-96
+excel,2509,2517,8,-8
+power bi,2500,2512,12,-12
+numpy,2494,2509,15,-15
+tableau,2463,2501,38,-38
+tensorflow,2553,2491,-62,62
+machine learning,2524,2485,-39,39
+java,2507,2483,-24,24
+deep learning,2490,2474,-16,16
+pandas,2502,2474,-28,28
+nlp,2507,2461,-46,46
+leadership,2585,2444,-141,141
