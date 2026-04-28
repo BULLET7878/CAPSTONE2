@@ -5,7 +5,7 @@ from pathlib import Path
 NB_DIR = Path(__file__).resolve().parent.parent / "notebooks"
 NB_DIR.mkdir(exist_ok=True)
 
-RAW = "data/raw/Job Datsset.xlsx"
+RAW = "data/raw/resume_job_matching_dataset_10000_v2.csv"
 PROCESSED = "data/processed"
 
 def nb(cells):
@@ -25,10 +25,10 @@ import numpy as np
 import warnings
 warnings.filterwarnings('ignore')
 
-RAW_FILE = "../data/raw/Job Datsset.xlsx"
+RAW_FILE = "../data/raw/resume_job_matching_dataset_10000_v2.csv"
 print("Libraries loaded.")"""),
     md("## 2. Load Raw Dataset"),
-    code("""df = pd.read_excel(RAW_FILE, engine="openpyxl")
+    code("""df = pd.read_csv(RAW_FILE)
 print(f"Shape: {df.shape}")
 print(f"Columns: {list(df.columns)}")
 df.head()"""),
@@ -62,7 +62,7 @@ warnings.filterwarnings('ignore')
 logging.basicConfig(level=logging.INFO, format='%(message)s')
 log = logging.getLogger()
 
-df = pd.read_excel("../data/raw/Job Datsset.xlsx", engine="openpyxl")
+df = pd.read_csv("../data/raw/resume_job_matching_dataset_10000_v2.csv")
 log.info(f"[LOAD] {df.shape[0]:,} rows × {df.shape[1]} columns")
 df.head(3)"""),
     md("## 2. Standardise Column Names"),
